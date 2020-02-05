@@ -1,8 +1,8 @@
+
 var currentDate = moment().format("MM/DD/YYYY");
 $("#theDate").append(currentDate);
 
-var timeArr = ["9", "10", "11", "12", "13", "14", "15", "16", "17"]
-updatetime();
+var timeArr = ["9", "10", "11", "12", "1", "2", "3", "4", "5"]
 
 function updatetime() {
   var currentTime = moment().format('H');
@@ -10,7 +10,7 @@ function updatetime() {
 
     if (parseInt(timeArr[i]) > currentTime) {
       $("#" + timeArr[i]).attr("style", "background-color: white");
-
+      
 
     }
     else if (parseInt(timeArr[i]) < currentTime) {
@@ -19,17 +19,21 @@ function updatetime() {
     }
     else if (parseInt(timeArr[i]) == currentTime) {
       $("#" + timeArr[i]).attr("style", "background-color: lightgreen");
-    
+      
     }
   }
 }
 
+updatetime();
+
 $(".rowBtn").on("click", function() {
-    var timeArr = $(this).parent().attr("id");
-    var textContent = $("input").val().trim();
+  var currentTime =  $(this).parent().attr("id");
+  var dayPlan = $(this).parent().find("input").val();
+  localStorage.setItem(currentTime, dayPlan);
+  });
 
-    localStorage.setItem(timeArr, textContent);
-    console.log(timeArr, textContent);
+  $("#time").each(function() {
+    var currentTime = $(this).attr("input");
+    var dayPlan = localStorage.getItem(currentTime);
+    $(this).find("id").val(dayPlan);
 });
-
-  $("input").val(localStorage.getItem("rowBtn"));
